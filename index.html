@@ -88,8 +88,9 @@ img{
 
 <body>
   <audio id="music" loop preload="auto">
-   <source src="music/music.mp3" type="audio/mpeg">
-  </audio>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <div id="s1" class="card">
     <div class="envelope">💌</div>
     <h2>У меня для тебя письмо...</h2>
@@ -127,13 +128,11 @@ img{
 let musicStarted = false;
 const audio = document.getElementById("music");
 
-
 audio.addEventListener('canplay', () => console.log('audio: canplay'));
 audio.addEventListener('playing', () => console.log('audio: playing'));
-audio.addEventListener('error', () => {
-  console.log('audio error:', audio.error);
+audio.addEventListener('error', (e) => {
+    console.log('audio error:', e, audio.error);
 });
-
 
 function startMusic(){
     if(!musicStarted){
@@ -143,7 +142,6 @@ function startMusic(){
                 console.log('play succeeded');
             }).catch(err => {
                 console.log('play failed:', err);
-          
             });
         }
         musicStarted = true;
@@ -176,8 +174,10 @@ function createHeart(){
 setInterval(createHeart,300);
 </script>
 
+
 </body>
 </html>
+
 
 
 
