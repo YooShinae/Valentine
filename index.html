@@ -87,7 +87,9 @@ img{
 </head>
 
 <body>
-
+<audio id="music" loop>
+  <source src="https://soundworldz.com/track/i-wanna-be-yours" type="audio/mp3">
+</audio>
 <div id="s1" class="card">
     <div class="envelope">💌</div>
     <h2>У меня для тебя письмо...</h2>
@@ -122,14 +124,28 @@ img{
 </div>
 
 <script>
+let musicStarted = false;
+
+function startMusic(){
+    if(!musicStarted){
+        document.getElementById("music").play();
+        musicStarted = true;
+    }
+}
+
 function next(hide,show){
+    startMusic(); // запускаем музыку при первом клике
     document.getElementById(hide).classList.add("hidden");
     document.getElementById(show).classList.remove("hidden");
 }
+
 function noOpen(){
+    startMusic();
     document.getElementById("s2").classList.add("hidden");
     document.getElementById("sNo").classList.remove("hidden");
 }
+
+/* сердечки */
 function createHeart(){
     const heart=document.createElement("div");
     heart.classList.add("heart");
@@ -145,4 +161,5 @@ setInterval(createHeart,300);
 
 </body>
 </html>
+
 
