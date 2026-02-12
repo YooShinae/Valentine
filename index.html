@@ -87,9 +87,9 @@ img{
 </head>
 
 <body>
-    <audio id="music" loop>
-  <source src="https://my.mail.ru/music/songs/7806608e8b91028a39baa06a36fa6cf8" type="audio/mp3">
-</audio>
+  <audio id="music" loop preload="auto">
+   <source src="music/music.mp3" type="audio/mpeg">
+  </audio>
 <div id="s1" class="card">
     <div class="envelope">💌</div>
     <h2>У меня для тебя письмо...</h2>
@@ -125,16 +125,33 @@ img{
 
 <script>
 let musicStarted = false;
+const audio = document.getElementById("music");
+
+
+audio.addEventListener('canplay', () => console.log('audio: canplay'));
+audio.addEventListener('playing', () => console.log('audio: playing'));
+audio.addEventListener('error', () => {
+  console.log('audio error:', audio.error);
+});
+
 
 function startMusic(){
     if(!musicStarted){
-        document.getElementById("music").play();
+        const p = audio.play();
+        if(p !== undefined){
+            p.then(() => {
+                console.log('play succeeded');
+            }).catch(err => {
+                console.log('play failed:', err);
+          
+            });
+        }
         musicStarted = true;
     }
 }
 
 function next(hide,show){
-    startMusic(); // запускаем музыку при первом клике
+    startMusic(); 
     document.getElementById(hide).classList.add("hidden");
     document.getElementById(show).classList.remove("hidden");
 }
@@ -161,6 +178,7 @@ setInterval(createHeart,300);
 
 </body>
 </html>
+
 
 
 
