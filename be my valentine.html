@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Валентинка</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#ffd6e7,#fff);
+    overflow:hidden;
+}
+
+/* падающие сердечки */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation: floatUp 6s linear infinite;
+    opacity:0.7;
+}
+@keyframes floatUp{
+    0%{transform:translateY(0) rotate(0); opacity:0;}
+    20%{opacity:1;}
+    100%{transform:translateY(-120vh) rotate(360deg); opacity:0;}
+}
+
+/* карточка */
+.card{
+    background:white;
+    width:90%;
+    max-width:420px;
+    padding:30px 20px;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    text-align:center;
+    position:absolute;
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(40px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.hidden{display:none;}
+
+button{
+    background:#ff4f8b;
+    color:white;
+    border:none;
+    padding:13px 28px;
+    border-radius:25px;
+    font-size:17px;
+    margin-top:15px;
+    cursor:pointer;
+    transition:.3s;
+}
+button:hover{background:#ff2f75;}
+
+.envelope{
+    font-size:120px;
+    margin-bottom:10px;
+}
+
+img{
+    width:250px;
+    border-radius:15px;
+    margin:20px 0;
+}
+
+/* адаптация под телефон */
+@media (max-width:480px){
+    h1{font-size:24px;}
+    h2{font-size:20px;}
+    .envelope{font-size:90px;}
+    img{width:200px;}
+    button{width:100%;font-size:16px;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="s1" class="card">
+    <div class="envelope">💌</div>
+    <h2>У меня для тебя письмо...</h2>
+    <button onclick="next('s1','s2')">Далее →</button>
+</div>
+
+<div id="s2" class="card hidden">
+    <h2>Хочешь открыть? (≧◡≦) ♡ </h2>
+    <img src="https://media1.tenor.com/m/yOsS7_Sts74AAAAd/cute-shiba-inu.gif">
+    <button onclick="next('s2','s3')">Открыть (⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)</button>
+    <button onclick="noOpen()">Не-а (╥﹏╥)</button>
+</div>
+
+<div id="sNo" class="card hidden">
+    <h2>Ну пожалуйста... (ಡ‸ಡ)<br>давай ещё раз?</h2>
+    <img src="https://media1.tenor.com/m/3jYQDohTjCwAAAAd/shiba-dog.gif">
+    <button onclick="next('sNo','s2')">Вернуться ＼(⁀▽⁀ )／</button>
+</div>
+
+<div id="s3" class="card hidden">
+    <h1>❤️ С Днём Святого Валентина! ❤️</h1>
+    <img src="https://media1.tenor.com/m/uOJpfOBMV3kAAAAd/shiba-heart.gif">
+    <p>Нажми на кнопочку ( ´ ∀ `)ノ～ ♡</p>
+    <button onclick="next('s3','s4')">Σ>―(〃°ω°〃)♡→</button>
+</div>
+
+<div id="s4" class="card hidden">
+    <img src="https://media1.tenor.com/m/PCC3xkC-3TkAAAAC/shiba-inu-cute.gif">
+    <h1>❤️ Я тебя люблю ❤️</h1>
+    <p>Ты делаешь каждый мой день особенным.</p>
+    <p>Спасибо, что ты есть 💞</p>
+</div>
+
+<script>
+function next(hide,show){
+    document.getElementById(hide).classList.add("hidden");
+    document.getElementById(show).classList.remove("hidden");
+}
+function noOpen(){
+    document.getElementById("s2").classList.add("hidden");
+    document.getElementById("sNo").classList.remove("hidden");
+}
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*20+15)+"px";
+    heart.style.animationDuration=(Math.random()*3+4)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),7000);
+}
+setInterval(createHeart,300);
+</script>
+
+</body>
+</html>
